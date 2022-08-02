@@ -28,7 +28,8 @@ class RouteServiceProvider extends ServiceProvider
      * @var string|null
      */
     // This is not available in the laravel 9 but we add and commit it but it is working fine
-    protected $namespace = 'App\\Http\\Controllers';
+    // protected $namespace = 'App\\Http\\Controllers';
+    // protected $namespace = 'App\Http\Controllers';
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.

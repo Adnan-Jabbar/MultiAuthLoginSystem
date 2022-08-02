@@ -1,7 +1,26 @@
 <x-admin-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Admin Dashboard') }}
+            @role('admin')
+                {{ __('Admin Dashboard') }}
+                <a href="{{ route('admin.admintest') }}" class="px-5 py-2 bg-green-400 text-white cursor-pointer">Link</a>
+            @endrole
+
+            @role('editor')
+                {{ __('Editor Dashboard') }}
+                <a href="{{ route('admin.editortest') }}" class="px-5 py-2 bg-green-400 text-white cursor-pointer">Link</a>
+            @endrole
+
+            {{-- check permission --}}
+            @permission('add-post')
+                <button type="button" class="px-5 py-2 bg-green-400 text-white">Add Post</button>
+            @endpermission
+
+            @permission('delete-post')
+                <button type="button" class="px-5 py-2 bg-red-400 text-white">Delete Post</button>
+            @endpermission
+
+            <a href="{{ route('admin.posts.index') }}" class="px-5 py-2 bg-red-400 text-white">Posts</a>
         </h2>
     </x-slot>
 

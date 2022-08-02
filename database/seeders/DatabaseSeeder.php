@@ -20,7 +20,15 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-
+        
         $this->call(AdminSeeder::class);
+        
+        // $this->command->info('AdminSeeder data seeded!');
+
+        \App\Models\Post::factory(50)->create();
+        
+        // $this->command->info('Post factory data seeded!');
+
+
     }
 }
