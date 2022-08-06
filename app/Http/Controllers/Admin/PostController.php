@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\AdminController;
 
-class PostController extends Controller
+class PostController extends AdminController
 {
     /**
      * Display a listing of the resource.
@@ -61,8 +61,25 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         // return view('admin.posts.edit', ['post' => $post ]);
-        dd($post);
+        // dd($post);
+        // // If check if the first method to check the authentication by if check admin guard
+        // if(\Auth::guard('admin')->user()->id == $post->admin_id)
+        // {
+        //     return view('admin.posts.edit',['post'=>$post]);
+        // }
+        // abort(403);
+
+        // // If check if the second method to check the authentication by admin guard post policy
+        // if(\Auth::guard('admin')->user()->can('view', $post))
+        // {
+        //     return view('admin.posts.edit',['post'=>$post]);
+        // }
+        // abort(403);
+
+        // // If check if the second method to check the authentication by admin guard post policy authorize 
+        $this->authorize('view', $post);
         return view('admin.posts.edit',['post'=>$post]);
+
     }
 
     /**
@@ -74,7 +91,13 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $this->authorize('update', $post);
+        $post->update([
+            'title' => $request->title,
+            'description' => $request->description
+        ]);
+
+        return redirect()->back();
     }
 
     /**
